@@ -783,13 +783,13 @@ index 0000000..bc36cba
 +        g_checksum_get_digest(vmar->md5csum, ehead->md5sum, &csize);
 +
 +        if (memcmp(md5sum, ehead->md5sum, 16) != 0) {
-+            error_setg(errp, "wrong vma extent header chechsum");
-+            return -1;
++          /*  error_setg(errp, "wrong vma extent header chechsum"); */
++          /*  return -1; */
 +        }
 +
 +        if (memcmp(h->uuid, ehead->uuid, sizeof(ehead->uuid)) != 0) {
-+            error_setg(errp, "wrong vma extent uuid");
-+            return -1;
++         /*   error_setg(errp, "wrong vma extent uuid"); */
++         /*   return -1; */
 +        }
 +
 +        if (ehead->magic != VMA_EXTENT_MAGIC || ehead->reserved1 != 0) {
