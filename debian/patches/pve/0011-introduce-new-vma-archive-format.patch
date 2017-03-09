@@ -203,7 +203,7 @@ index 0000000..bc36cba
 +{
 +    ssize_t n;
 +
-+    do { long int fileposition = ftell(fd); printf("SAFE_READ @ %u for %u", fileposition, count);
++    do { long int fileposition = ftell(fd); printf("SAFE_READ @ %lu for %u", fileposition, count);
 +        n = read(fd, buf, count);
 +    } while (n < 0 && errno == EINTR);
 +
