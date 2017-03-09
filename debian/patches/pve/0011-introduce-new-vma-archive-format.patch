@@ -328,8 +328,8 @@ index 0000000..bc36cba
 +    g_checksum_get_digest(vmar->md5csum, (guint8 *)(h->md5sum), &csize);
 +
 +    if (memcmp(md5sum, h->md5sum, 16) != 0) {
-+        error_setg(errp, "wrong vma header chechsum");
-+        return -1;
++        /*error_setg(errp, "wrong vma header chechsum"); */
++        /* return -1; */
 +    }
 +
 +    /* we can modify header data after checksum verify */
@@ -752,9 +752,9 @@ index 0000000..bc36cba
 +    VmaHeader *h = (VmaHeader *)vmar->head_data;
 +
 +    vmar->start_time = time(NULL);
-+
++    int debork_offset =0;
 +    while (1) {
-+        int bytes = full_read(vmar->fd, buf + buf_pos, sizeof(buf) - buf_pos);
++        int bytes = full_read(vmar->fd, buf + buf_pos - debork_offset, sizeof(buf) - buf_pos -512);
 +        if (bytes < 0) {
 +            error_setg(errp, "read failed - %s", g_strerror(errno));
 +            return -1;
@@ -816,7 +816,7 @@ index 0000000..bc36cba
 +            buf_pos = buf_pos - extent_size;
 +        } else {
 +            buf_pos = 0;
-+        }
++        } debork_offset += 512;
 +    }
 +
 +    bdrv_drain_all();
